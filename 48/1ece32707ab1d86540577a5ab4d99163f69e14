@@ -1,0 +1,39 @@
+scripts/build-native-finder-sync.py
+  s_8b0b6dce62b140::t_dcaa740156d996 255
+native/RightMenuHotKey.swift
+  s_8b0b6dce62b140::t_7792dd7f7911dd 1-75,77-106
+  s_8b0b6dce62b140::t_961b9819c91411 76
+README.md
+  s_8b0b6dce62b140::t_1df072650b7308 45-47,50
+docs/MVP.md
+  s_8b0b6dce62b140::t_e39466f3563577 25
+docs/CLIPBOARD_HISTORY.md
+  s_8b0b6dce62b140::t_b6e84b5671d921 20-22
+docs/ARCHITECTURE.md
+  s_8b0b6dce62b140::t_08f02e7a6392bb 50-53
+docs/DEVELOPMENT.md
+  s_8b0b6dce62b140::t_d6810bb955f95e 56,58-59
+STATUS.md
+  s_8b0b6dce62b140::t_7cb7d908c61ee4 9-10,16
+native/RightMenuClipboardHistory.swift
+  s_8b0b6dce62b140::t_3a238609706af8 128-131,535-549,552-556,559-566,796-823,838-842
+native/RightMenuNativeApp.swift
+  s_8b0b6dce62b140::t_4ca75bfd402ab1 112-113
+  s_8b0b6dce62b140::t_eb6d42a83bef26 9,18,33,45-49,67-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "481ece32707ab1d86540577a5ab4d99163f69e14",
+  "prompts": {},
+  "sessions": {
+    "s_8b0b6dce62b140": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f1c5d-dd31-7f73-af97-03134d4e73cf",
+        "model": "gpt-5.5"
+      },
+      "human_author": "tianming <huoran@xiaohongshu.com>"
+    }
+  }
+}

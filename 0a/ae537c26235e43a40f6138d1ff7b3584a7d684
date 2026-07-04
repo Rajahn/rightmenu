@@ -1,0 +1,43 @@
+docs/CLIPBOARD_HISTORY.md
+  s_8b0b6dce62b140::t_dc88e271d08774 1-55
+scripts/build-native-finder-sync.py
+  s_8b0b6dce62b140::t_530851f7ffe677 255
+README.md
+  s_8b0b6dce62b140::t_ab4900b82a0730 11,20,53-54,65
+native/RightMenuClipboardHistory.swift
+  s_8b0b6dce62b140::t_d9e03a40bd9e22 495,501,532,538-542,777-790
+  s_8b0b6dce62b140::t_3c094b17cc86eb 741,772-773
+  s_8b0b6dce62b140::t_8214e5202d085d 497,616-618,771,774-775,822-830
+  s_8b0b6dce62b140::t_cb3c1537d7f23c 517
+  s_8b0b6dce62b140::t_1390fd89b905e6 738
+  s_8b0b6dce62b140::t_27ea05002e42c7 1-494,496,498-500,502-516,518-531,533-537,543-611,614-615,619-737,739-740,742-770,776,791-821,831-837
+  s_8b0b6dce62b140::t_d1192ae6140d8d 612-613
+STATUS.md
+  s_8b0b6dce62b140::t_0711dfb22970c1 3,9-10,15-16
+docs/ARCHITECTURE.md
+  s_8b0b6dce62b140::t_6b570185f02cec 44-49,77-78
+docs/MVP.md
+  s_8b0b6dce62b140::t_289b56ad64ee22 25
+docs/DEVELOPMENT.md
+  s_8b0b6dce62b140::t_bdb3816aafdfe0 51-60
+native/RightMenuNativeApp.swift
+  s_8b0b6dce62b140::t_214d61b689719c 94-95
+  s_8b0b6dce62b140::t_19050add3b6f18 10,15,44,59-60
+  s_8b0b6dce62b140::t_3365172398c9e9 650-658
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "0aae537c26235e43a40f6138d1ff7b3584a7d684",
+  "prompts": {},
+  "sessions": {
+    "s_8b0b6dce62b140": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f1c5d-dd31-7f73-af97-03134d4e73cf",
+        "model": "gpt-5.5"
+      },
+      "human_author": "tianming <huoran@xiaohongshu.com>"
+    }
+  }
+}

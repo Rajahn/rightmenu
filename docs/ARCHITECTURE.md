@@ -41,6 +41,12 @@ The Finder extension should stay thin. It reads Finder selection context, render
   - Executes paste copy/move requests from the Finder extension in the current self-use build
   - Restarts Finder after applying changes
 
+- `native/RightMenuClipboardHistory.swift`
+  - Smart clipboard history in the menu-bar host app
+  - Polls the system pasteboard and stores local history
+  - Classifies records as text, link, file/path, code, or image
+  - Supports search, re-copy, pin, delete, and link opening
+
 ## Action Contract
 
 Each action has:
@@ -68,3 +74,5 @@ The first product-quality boundary is not "all Super Right Click features." It i
 For self-use, the primary Finder surface is now the native Finder Sync extension installed by `scripts/build-native-finder-sync.py`. Automator Quick Actions remain as a compatibility fallback and as a low-friction way to validate action ideas, but they are not installed by default because they duplicate native actions under Finder's `服务` menu.
 
 The current copy/cut/paste implementation is intentionally split: the Finder Sync extension is sandboxed and owns menu/context capture, while the unsandboxed local host app executes the actual file copy/move through a `rightmenu://` URL request. This is acceptable for the self-use build; product packaging should replace it with a formal app-extension-to-main-app execution channel and security-scoped file access.
+
+Smart Clipboard History is host-app only. Finder right-click copy actions naturally flow into it through the system pasteboard; the Finder extension does not need a clipboard-history dependency.

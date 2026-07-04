@@ -48,6 +48,16 @@ Native Finder menu metadata lives in `native/rightmenu-native-actions.json`. The
 
 The Finder Sync extension is sandboxed. File copy/cut/paste uses a shared buffer in the extension container; paste execution is delegated to the unsandboxed local host app through the registered `rightmenu://paste-items` URL scheme.
 
+## Smart Clipboard History
+
+Clipboard history lives in the native host app:
+
+- UI and monitoring: `native/RightMenuClipboardHistory.swift`
+- Persistence: `~/Library/Application Support/RightMenu/clipboard-history.json`
+- Entry point: menu-bar item `剪贴板历史`
+
+The monitor polls `NSPasteboard.general.changeCount`, classifies supported content locally, and keeps at most 100 unpinned records plus pinned records.
+
 For long-term product packaging, install Xcode and run:
 
 ```sh

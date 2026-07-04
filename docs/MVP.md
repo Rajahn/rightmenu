@@ -22,6 +22,7 @@
 - Native Finder action manifest and per-action enable/disable config
 - AppKit menu-bar control panel for enabling or hiding native Finder actions
 - Native Windows-style file copy / cut / paste, with Finder Sync delegating paste execution to the host app
+- Smart clipboard history with local classification, search, re-copy, pin, and delete
 - Optional Automator Quick Actions fallback, kept uninstalled by default to avoid duplicate Services entries
 
 ## Phase 2: Finder Integration

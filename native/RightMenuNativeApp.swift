@@ -7,10 +7,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
     private var controller: ControlPanelController?
     private let fileOperationService = NativeFileOperationService()
+    private let clipboardHistory = ClipboardHistoryCoordinator()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         registerURLHandler()
+        clipboardHistory.start()
         configureStatusItem()
         showControlPanel(nil)
     }
@@ -39,6 +41,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "剪贴板历史", action: #selector(showClipboardHistory(_:)), keyEquivalent: "h"))
         menu.addItem(NSMenuItem(title: "打开控制面板", action: #selector(showControlPanel(_:)), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: "应用到 Finder", action: #selector(restartFinder), keyEquivalent: "r"))
         menu.addItem(NSMenuItem.separator())
@@ -51,6 +54,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         item.menu = menu
         statusItem = item
+    }
+
+    @objc private func showClipboardHistory(_ sender: Any?) {
+        clipboardHistory.showWindow()
     }
 
     @objc private func showControlPanel(_ sender: Any?) {
@@ -84,6 +91,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         if url.host == "paste-items" {
             handlePasteItems(url)
+        } else if url.host == "clipboard-history" {
+            clipboardHistory.showWindow()
         }
     }
 
@@ -638,7 +647,12 @@ private struct RightMenuAppError: LocalizedError, CustomStringConvertible {
     }
 }
 
-let app = NSApplication.shared
-let delegate = AppDelegate()
-app.delegate = delegate
-app.run()
+@main
+enum RightMenuNativeMain {
+    static func main() {
+        let app = NSApplication.shared
+        let delegate = AppDelegate()
+        app.delegate = delegate
+        app.run()
+    }
+}

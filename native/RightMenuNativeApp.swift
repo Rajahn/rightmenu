@@ -6,6 +6,7 @@ private let finderExtensionBundleID = "com.huoran.rightmenu.findersync"
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
     private var controller: ControlPanelController?
+    private var clipboardHotKey: GlobalHotKey?
     private let fileOperationService = NativeFileOperationService()
     private let clipboardHistory = ClipboardHistoryCoordinator()
 
@@ -14,7 +15,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         registerURLHandler()
         clipboardHistory.start()
         configureStatusItem()
-        showControlPanel(nil)
+        registerClipboardHistoryHotKey()
     }
 
     private func registerURLHandler() {
@@ -29,7 +30,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func configureStatusItem() {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = item.button {
-            button.toolTip = "RightMenu"
+            button.toolTip = "RightMenu · 剪贴板历史 ⌃⌥V"
             if #available(macOS 11.0, *) {
                 button.image = NSImage(
                     systemSymbolName: "contextualmenu.and.cursorarrow",
@@ -41,8 +42,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "剪贴板历史", action: #selector(showClipboardHistory(_:)), keyEquivalent: "h"))
-        menu.addItem(NSMenuItem(title: "打开控制面板", action: #selector(showControlPanel(_:)), keyEquivalent: ","))
+        let historyItem = NSMenuItem(title: "打开剪贴板历史", action: #selector(showClipboardHistory(_:)), keyEquivalent: "v")
+        historyItem.keyEquivalentModifierMask = [.control, .option]
+        menu.addItem(historyItem)
+        menu.addItem(NSMenuItem(title: "右键配置面板", action: #selector(showControlPanel(_:)), keyEquivalent: ","))
+        menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "应用到 Finder", action: #selector(restartFinder), keyEquivalent: "r"))
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "扩展设置", action: #selector(openExtensionSettings), keyEquivalent: ""))
@@ -58,6 +62,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func showClipboardHistory(_ sender: Any?) {
         clipboardHistory.showWindow()
+    }
+
+    private func registerClipboardHistoryHotKey() {
+        clipboardHotKey = GlobalHotKey(
+            keyCode: UInt32(kVK_ANSI_V),
+            modifiers: UInt32(controlKey | optionKey),
+            signature: fourCharCode("RMCH"),
+            id: 1
+        ) { [weak self] in
+            self?.clipboardHistory.toggleQuickWindow()
+        }
+        clipboardHotKey?.register()
     }
 
     @objc private func showControlPanel(_ sender: Any?) {
@@ -93,6 +109,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             handlePasteItems(url)
         } else if url.host == "clipboard-history" {
             clipboardHistory.showWindow()
+        } else if url.host == "control-panel" {
+            showControlPanel(nil)
         }
     }
 

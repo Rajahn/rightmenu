@@ -252,6 +252,7 @@ def compile_swift() -> None:
     run([
         "/usr/bin/swiftc",
         str(NATIVE_DIR / "RightMenuNativeApp.swift"),
+        str(NATIVE_DIR / "RightMenuHotKey.swift"),
         str(NATIVE_DIR / "RightMenuClipboardHistory.swift"),
         "-sdk",
         sdk,

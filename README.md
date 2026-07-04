@@ -42,10 +42,12 @@ python3 scripts/build-native-finder-sync.py list-actions
 
 This installs `/Applications/RightMenuNative.app`, registers `com.huoran.rightmenu.findersync`, and restarts Finder. The native Finder Sync menu is the primary self-use surface because it appears in Finder's normal right-click menu instead of being buried under Services.
 
-Open the control panel from the menu-bar icon or with:
+RightMenu runs as a menu-bar app. Open clipboard history with `Ctrl+Option+V` (`⌃⌥V`) or from the menu-bar icon.
+
+Open the right-click configuration panel from the menu-bar icon or with:
 
 ```sh
-open /Applications/RightMenuNative.app
+open 'rightmenu://control-panel'
 ```
 
 The control panel can enable or hide individual native right-click actions and then apply changes to Finder.

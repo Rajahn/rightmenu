@@ -17,6 +17,9 @@ Supported categories:
 
 ## Behavior
 
+- `Ctrl+Option+V` (`⌃⌥V`) opens the history window globally, resets stale filters, and focuses search.
+- Pressing the hotkey again while the history window is focused hides it.
+- The menu-bar icon keeps both `打开剪贴板历史` and `右键配置面板`; the Finder right-click configuration panel is not part of the clipboard window.
 - The host app polls `NSPasteboard.general.changeCount`.
 - New clipboard content is persisted to:
 

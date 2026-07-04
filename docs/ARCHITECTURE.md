@@ -47,6 +47,10 @@ The Finder extension should stay thin. It reads Finder selection context, render
   - Classifies records as text, link, file/path, code, or image
   - Supports search, re-copy, pin, delete, and link opening
 
+- `native/RightMenuHotKey.swift`
+  - Registers the global `⌃⌥V` clipboard-history hotkey with Carbon
+  - Keeps keyboard invocation outside the Finder extension and inside the menu-bar host app
+
 ## Action Contract
 
 Each action has:

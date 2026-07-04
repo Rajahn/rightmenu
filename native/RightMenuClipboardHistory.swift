@@ -125,6 +125,10 @@ final class ClipboardHistoryCoordinator {
     func showWindow() {
         windowController.showPanel()
     }
+
+    func toggleQuickWindow() {
+        windowController.toggleQuickPanel()
+    }
 }
 
 final class ClipboardHistoryStore {
@@ -528,11 +532,38 @@ final class ClipboardHistoryWindowController: NSWindowController, NSWindowDelega
     }
 
     func showPanel() {
+        showPanel(resetFilters: false, focusSearch: false, nearMouse: false)
+    }
+
+    func toggleQuickPanel() {
+        if window?.isVisible == true, window?.isKeyWindow == true {
+            window?.orderOut(nil)
+            return
+        }
+        showPanel(resetFilters: true, focusSearch: true, nearMouse: true)
+    }
+
+    private func showPanel(resetFilters: Bool, focusSearch: Bool, nearMouse: Bool) {
+        if resetFilters {
+            resetFiltersAndSearch()
+        }
         reloadRows()
         startSearchPolling()
-        centerOnMainScreen()
+        if nearMouse {
+            positionNearMouse()
+        } else {
+            centerOnMainScreen()
+        }
         window?.makeKeyAndOrderFront(nil)
         NSRunningApplication.current.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
+        if focusSearch {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.window?.makeFirstResponder(self.searchField)
+            }
+        }
     }
 
     func windowWillClose(_ notification: Notification) {
@@ -762,6 +793,34 @@ final class ClipboardHistoryWindowController: NSWindowController, NSWindowDelega
         window.setFrame(frame, display: true)
     }
 
+    private func positionNearMouse() {
+        guard let window else {
+            return
+        }
+        let mouse = NSEvent.mouseLocation
+        let targetScreen = NSScreen.screens.first { screen in
+            NSMouseInRect(mouse, screen.frame, false)
+        } ?? NSScreen.main ?? NSScreen.screens.first
+
+        guard let screen = targetScreen else {
+            centerOnMainScreen()
+            return
+        }
+
+        let visible = screen.visibleFrame
+        let margin: CGFloat = 16
+        var frame = window.frame
+        frame.origin.x = min(
+            max(mouse.x - frame.width / 2, visible.minX + margin),
+            visible.maxX - frame.width - margin
+        )
+        frame.origin.y = min(
+            max(mouse.y - frame.height - 14, visible.minY + margin),
+            visible.maxY - frame.height - margin
+        )
+        window.setFrame(frame, display: true)
+    }
+
     @objc private func filterChanged(_ sender: NSSegmentedControl) {
         filter = ClipboardHistoryFilter(rawValue: sender.selectedSegment) ?? .all
         reloadRows()
@@ -774,6 +833,13 @@ final class ClipboardHistoryWindowController: NSWindowController, NSWindowDelega
     private func updateSearch(_ value: String) {
         query = value
         reloadRows()
+    }
+
+    private func resetFiltersAndSearch() {
+        filter = .all
+        query = ""
+        segmented.selectedSegment = ClipboardHistoryFilter.all.rawValue
+        searchField.stringValue = ""
     }
 
     private func startSearchPolling() {

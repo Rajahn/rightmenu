@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "groups": [
+    [
+      {
+        "id": "native.copy.path",
+        "title": "复制路径",
+        "emptyTitle": "复制当前文件夹路径",
+        "symbol": "doc.on.doc",
+        "visibility": "always",
+        "handler": "copyPath"
+      },
+      {
+        "id": "native.copy.shell-path",
+        "title": "复制 Shell 路径",
+        "symbol": "terminal",
+        "visibility": "always",
+        "handler": "copyShellPath"
+      },
+      {
+        "id": "native.copy.name",
+        "title": "复制名称",
+        "symbol": "textformat",
+        "visibility": "selectionOnly",
+        "handler": "copyName"
+      },
+      {
+        "id": "native.copy.parent-path",
+        "title": "复制父路径",
+        "symbol": "folder",
+        "visibility": "selectionOnly",
+        "handler": "copyParentPath"
+      },
+      {
+        "id": "native.copy.git-relative-path",
+        "title": "复制 Git 相对路径",
+        "symbol": "point.topleft.down.curvedto.point.bottomright.up",
+        "visibility": "selectionOnly",
+        "handler": "copyGitRelativePath"
+      }
+    ],
+    [
+      {
+        "id": "native.file.copy-items",
+        "title": "复制项目",
+        "symbol": "doc.on.doc",
+        "visibility": "selectionOnly",
+        "handler": "copyItems"
+      },
+      {
+        "id": "native.file.cut-items",
+        "title": "剪切项目",
+        "symbol": "scissors",
+        "visibility": "selectionOnly",
+        "handler": "cutItems"
+      },
+      {
+        "id": "native.file.paste-items",
+        "title": "粘贴到这里",
+        "emptyTitle": "粘贴到当前文件夹",
+        "symbol": "clipboard",
+        "visibility": "always",
+        "handler": "pasteItems"
+      }
+    ],
+    [
+      {
+        "id": "native.open.terminal",
+        "title": "在终端打开",
+        "symbol": "terminal",
+        "visibility": "always",
+        "handler": "openTerminal"
+      },
+      {
+        "id": "native.open.vscode",
+        "title": "在 VS Code 打开",
+        "symbol": "chevron.left.forwardslash.chevron.right",
+        "visibility": "always",
+        "handler": "openVSCode"
+      },
+      {
+        "id": "native.open.cursor",
+        "title": "在 Cursor 打开",
+        "symbol": "cursorarrow",
+        "visibility": "always",
+        "handler": "openCursor"
+      }
+    ],
+    [
+      {
+        "id": "native.create.text-file",
+        "title": "新建文本文件",
+        "symbol": "doc.badge.plus",
+        "visibility": "always",
+        "handler": "newTextFile"
+      },
+      {
+        "id": "native.create.markdown-file",
+        "title": "新建 Markdown 文件",
+        "symbol": "doc.text",
+        "visibility": "always",
+        "handler": "newMarkdownFile"
+      },
+      {
+        "id": "native.archive.zip-selected",
+        "title": "压缩所选项目",
+        "symbol": "archivebox",
+        "visibility": "selectionOnly",
+        "handler": "zipSelectedItems"
+      }
+    ]
+  ]
+}

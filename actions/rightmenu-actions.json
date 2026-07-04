@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "actions": [
+    {
+      "id": "quick.copy.selected-path",
+      "title": "RightMenu Copy Selected Path",
+      "category": "copy",
+      "surfaces": ["quickAction"],
+      "coreActionID": "copy.absolute-paths",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "copy_selected_path",
+        "sendFileTypes": ["public.item"]
+      }
+    },
+    {
+      "id": "quick.copy.selected-name",
+      "title": "RightMenu Copy Selected Name",
+      "category": "copy",
+      "surfaces": ["quickAction"],
+      "coreActionID": "copy.file-names",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "copy_selected_name",
+        "sendFileTypes": ["public.item"]
+      }
+    },
+    {
+      "id": "quick.copy.parent-path",
+      "title": "RightMenu Copy Parent Path",
+      "category": "copy",
+      "surfaces": ["quickAction"],
+      "coreActionID": "copy.parent-directories",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "copy_parent_path",
+        "sendFileTypes": ["public.item"]
+      }
+    },
+    {
+      "id": "quick.copy.shell-path",
+      "title": "RightMenu Copy Shell Path",
+      "category": "copy",
+      "surfaces": ["quickAction"],
+      "coreActionID": "copy.shell-escaped-paths",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "copy_shell_path",
+        "sendFileTypes": ["public.item"]
+      }
+    },
+    {
+      "id": "quick.copy.git-relative-path",
+      "title": "RightMenu Copy Git Relative Path",
+      "category": "copy",
+      "surfaces": ["quickAction"],
+      "coreActionID": "copy.git-relative-paths",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "copy_git_relative_path",
+        "sendFileTypes": ["public.item"]
+      }
+    },
+    {
+      "id": "quick.copy.current-finder-path",
+      "title": "RightMenu Copy Current Finder Path",
+      "category": "copy",
+      "surfaces": ["quickAction"],
+      "quickAction": {
+        "input": "finder",
+        "scriptKey": "copy_current_finder_path"
+      }
+    },
+    {
+      "id": "quick.open.terminal-selected",
+      "title": "RightMenu Open Terminal at Selected",
+      "category": "open",
+      "surfaces": ["quickAction"],
+      "coreActionID": "open.terminal",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "open_terminal_selected",
+        "sendFileTypes": ["public.item"]
+      }
+    },
+    {
+      "id": "quick.open.terminal-here",
+      "title": "RightMenu Open Terminal Here",
+      "category": "open",
+      "surfaces": ["quickAction"],
+      "coreActionID": "open.terminal",
+      "quickAction": {
+        "input": "finder",
+        "scriptKey": "open_terminal_here"
+      }
+    },
+    {
+      "id": "quick.open.vscode-selected",
+      "title": "RightMenu Open VS Code at Selected",
+      "category": "open",
+      "surfaces": ["quickAction"],
+      "coreActionID": "open.vscode",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "open_vscode_selected",
+        "sendFileTypes": ["public.item"]
+      }
+    },
+    {
+      "id": "quick.open.vscode-here",
+      "title": "RightMenu Open VS Code Here",
+      "category": "open",
+      "surfaces": ["quickAction"],
+      "coreActionID": "open.vscode",
+      "quickAction": {
+        "input": "finder",
+        "scriptKey": "open_vscode_here"
+      }
+    },
+    {
+      "id": "quick.open.cursor-selected",
+      "title": "RightMenu Open Cursor at Selected",
+      "category": "open",
+      "surfaces": ["quickAction"],
+      "coreActionID": "open.cursor",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "open_cursor_selected",
+        "sendFileTypes": ["public.item"]
+      }
+    },
+    {
+      "id": "quick.open.cursor-here",
+      "title": "RightMenu Open Cursor Here",
+      "category": "open",
+      "surfaces": ["quickAction"],
+      "coreActionID": "open.cursor",
+      "quickAction": {
+        "input": "finder",
+        "scriptKey": "open_cursor_here"
+      }
+    },
+    {
+      "id": "quick.create.text-file-here",
+      "title": "RightMenu New Text File Here",
+      "category": "create",
+      "surfaces": ["quickAction"],
+      "coreActionID": "create.text-file",
+      "quickAction": {
+        "input": "finder",
+        "scriptKey": "new_text_file_here"
+      }
+    },
+    {
+      "id": "quick.create.markdown-file-here",
+      "title": "RightMenu New Markdown File Here",
+      "category": "create",
+      "surfaces": ["quickAction"],
+      "coreActionID": "create.markdown-file",
+      "quickAction": {
+        "input": "finder",
+        "scriptKey": "new_markdown_file_here"
+      }
+    },
+    {
+      "id": "quick.create.json-file-here",
+      "title": "RightMenu New JSON File Here",
+      "category": "create",
+      "surfaces": ["quickAction"],
+      "coreActionID": "create.json-file",
+      "quickAction": {
+        "input": "finder",
+        "scriptKey": "new_json_file_here"
+      }
+    },
+    {
+      "id": "quick.archive.zip-selected",
+      "title": "RightMenu Zip Selected Items",
+      "category": "archive",
+      "surfaces": ["quickAction"],
+      "coreActionID": "archive.zip-items",
+      "quickAction": {
+        "input": "selected",
+        "scriptKey": "zip_selected_items",
+        "sendFileTypes": ["public.item"]
+      }
+    }
+  ]
+}
+

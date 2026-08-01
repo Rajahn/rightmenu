@@ -1,0 +1,28 @@
+STATUS.md
+  s_53665e5b1a8bdd::t_6fe627e29a50b8 3
+  s_f1d2e2fa7f2bae::t_99e71528a3de30 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "54eb0f98a346c326220d9d0ad3084c2a364273d7",
+  "prompts": {},
+  "sessions": {
+    "s_53665e5b1a8bdd": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f49d0-a737-70b2-bd50-01b8e41ba021",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    },
+    "s_f1d2e2fa7f2bae": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3541-9e55-76d1-893e-7173e1bad776",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}

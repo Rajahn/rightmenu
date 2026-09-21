@@ -1,3 +1,10 @@
+---
+project_id: mac-right-menu
+owner: personal
+nature: formal
+phase: maintenance
+---
+
 # RightMenu · STATUS
 
 更新时间：2026-08-01（周整理复核；本周仅发现 Automator workflow UUID 重生成，无功能实现或验证结论）

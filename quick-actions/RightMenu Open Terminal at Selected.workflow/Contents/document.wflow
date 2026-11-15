@@ -172,11 +172,11 @@ open_terminal_at "$target"</string>
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>7426BBB3-A312-4881-A6F1-30E2F1F96E1E</string>
+				<string>94E67AA8-291C-4710-87EA-67282AD26AFE</string>
 				<key>OutputUUID</key>
-				<string>A21AB524-B8A8-454A-B588-2D5A970FB39C</string>
+				<string>67E40791-37DA-4298-9489-7EE6C031C277</string>
 				<key>UUID</key>
-				<string>F05107AF-669C-45F0-B6BE-DB1A587DF647</string>
+				<string>BDD3DEAD-3672-4A64-9296-A506FABACCB4</string>
 				<key>UnlockPlugin</key>
 				<false/>
 				<key>arguments</key>

@@ -178,11 +178,11 @@ done | /usr/bin/pbcopy</string>
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>77F18482-BE33-4E59-A2D3-CDC073CC8D00</string>
+				<string>BC3FC143-D5AE-49BB-BABE-7F02D8E03BDB</string>
 				<key>OutputUUID</key>
-				<string>A423A9CD-DF0F-4EE1-AF82-F59A2C72E737</string>
+				<string>764D0EB0-D3F0-4D99-AA21-8E8D0C749BEC</string>
 				<key>UUID</key>
-				<string>5038B69F-E11B-4A3C-BF43-C3C3FFB49268</string>
+				<string>63F690BA-DF89-4B57-8251-B81307BA0A66</string>
 				<key>UnlockPlugin</key>
 				<false/>
 				<key>arguments</key>

@@ -172,11 +172,11 @@ open_editor_at "Visual Studio Code" "code" "$target"</string>
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>7E11543C-BCDE-4957-B2CB-146835E50966</string>
+				<string>AA1C8B10-2A93-4B90-9F5E-FCA21BD98D3C</string>
 				<key>OutputUUID</key>
-				<string>1841A00D-26BB-469E-801C-7C0309BC34CE</string>
+				<string>8E7C05C4-97C2-4C19-A890-D4ADEEA526CF</string>
 				<key>UUID</key>
-				<string>09A12260-A6DF-4C8B-9D4B-E33D7B79ABCC</string>
+				<string>552054B6-134F-4B56-80BA-9B6FE878758A</string>
 				<key>UnlockPlugin</key>
 				<false/>
 				<key>arguments</key>

@@ -174,11 +174,11 @@ printf '{\n  \n}\n' &gt; "$new_file"
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>2081977B-F54C-4C36-817E-EE83468D5175</string>
+				<string>56C0E073-57A0-48B6-A4CF-32B0516DD6AD</string>
 				<key>OutputUUID</key>
-				<string>D5FC4711-6ABC-4EAA-BCF4-3851CC402B5C</string>
+				<string>16C6544F-8A15-4488-907F-2D3EB7525CD5</string>
 				<key>UUID</key>
-				<string>ABA1EEDE-3CFD-4F2F-AE4A-9FAF8AB17D3A</string>
+				<string>00D820A7-2911-4D05-AAA8-FCFB0DCAF70A</string>
 				<key>UnlockPlugin</key>
 				<false/>
 				<key>arguments</key>

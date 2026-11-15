@@ -171,11 +171,11 @@ finder_path | /usr/bin/pbcopy</string>
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>CC71FBFD-04F9-4D8D-A0E0-03717E45F277</string>
+				<string>B535DAEF-E6DB-465D-8416-2C92477EBA72</string>
 				<key>OutputUUID</key>
-				<string>8B840B4B-CA69-401E-9C80-713220FE49D8</string>
+				<string>BD6A2587-AA99-40EF-BEC3-7F34F213D1F3</string>
 				<key>UUID</key>
-				<string>70817FCD-C2BF-49F9-A94E-2C384BB18A61</string>
+				<string>27F7ED3C-CDE0-4CB8-ABB3-6BCC6EA884B3</string>
 				<key>UnlockPlugin</key>
 				<false/>
 				<key>arguments</key>

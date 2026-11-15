@@ -197,11 +197,11 @@ done
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>8912DE7A-A0E8-45DE-984C-1989EB722AF8</string>
+				<string>5C9511A4-CACF-45B7-9F63-5FFAB67FC26F</string>
 				<key>OutputUUID</key>
-				<string>24C652F7-A260-4FF8-AA84-AFED464B07B2</string>
+				<string>3F6387AA-1986-4D61-87DF-091DCE66B657</string>
 				<key>UUID</key>
-				<string>93623A82-714C-4D22-9EF2-04960E4C2096</string>
+				<string>35DFF993-DED3-409C-BE2E-CA5CCA63DAF1</string>
 				<key>UnlockPlugin</key>
 				<false/>
 				<key>arguments</key>

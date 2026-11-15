@@ -172,11 +172,11 @@ open_editor_at "Cursor" "cursor" "$target"</string>
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>6301FA78-615A-44E5-9514-22D53D379A06</string>
+				<string>AE9025B0-AC72-4BB9-B1C9-5CBBE784B8A0</string>
 				<key>OutputUUID</key>
-				<string>21F1B212-B530-4942-BFF9-74FF570A6D10</string>
+				<string>4DEC70D1-6333-4BED-BB4E-10BCBD6753E5</string>
 				<key>UUID</key>
-				<string>51F50176-F392-4B1E-A3B4-93E7EA9E3895</string>
+				<string>4FAC76A8-CBDD-463B-AB51-87F0074ADD5F</string>
 				<key>UnlockPlugin</key>
 				<false/>
 				<key>arguments</key>

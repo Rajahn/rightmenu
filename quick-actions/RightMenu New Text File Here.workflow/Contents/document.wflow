@@ -174,11 +174,11 @@ touch "$new_file"
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>3E4E2167-CD5C-4406-B615-9F07FE29A872</string>
+				<string>3E9E4934-10C4-4EAF-A00F-76CEEDF56B81</string>
 				<key>OutputUUID</key>
-				<string>C1BEA69F-7E0E-4CEF-A23E-9F2F6CE297D5</string>
+				<string>8C177D1B-6906-4068-8BEE-718E7236935F</string>
 				<key>UUID</key>
-				<string>1B09EFB1-D87E-419C-8465-F41C882AD7D4</string>
+				<string>9AA507F6-A400-4CF9-B08A-37F0D39B7300</string>
 				<key>UnlockPlugin</key>
 				<false/>
 				<key>arguments</key>

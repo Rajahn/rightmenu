@@ -1,4 +1,5 @@
 import Cocoa
+import CryptoKit
 
 private let clipboardHistoryMaxItems = 100
 
@@ -46,6 +47,7 @@ struct ClipboardHistoryRecord: Codable, Equatable {
     var text: String?
     var filePaths: [String]
     var imageTIFFData: Data?
+    var imageFileName: String?
     var preview: String
     var detail: String
     var signature: String
@@ -141,6 +143,11 @@ final class ClipboardHistoryStore {
             .appendingPathComponent("clipboard-history.json")
     }
 
+    private var imageDirectoryURL: URL {
+        fileURL.deletingLastPathComponent()
+            .appendingPathComponent("clipboard-images", isDirectory: true)
+    }
+
     func load() {
         guard FileManager.default.fileExists(atPath: fileURL.path) else {
             records = []
@@ -150,14 +157,20 @@ final class ClipboardHistoryStore {
         do {
             let data = try Data(contentsOf: fileURL)
             records = try JSONDecoder().decode([ClipboardHistoryRecord].self, from: data)
+            let migrated = migrateInlineImagesAndSignatures()
             normalizeLimit()
+            cleanupOrphanedImages()
+            if migrated {
+                save()
+            }
         } catch {
             NSLog("RightMenu failed to load clipboard history: %@", String(describing: error))
             records = []
         }
     }
 
-    func add(_ record: ClipboardHistoryRecord) {
+    func add(_ newRecord: ClipboardHistoryRecord) {
+        var record = newRecord
         if let index = records.firstIndex(where: { $0.signature == record.signature }) {
             var existing = records.remove(at: index)
             existing.lastCopiedAt = record.lastCopiedAt
@@ -165,17 +178,19 @@ final class ClipboardHistoryStore {
             existing.detail = record.detail
             existing.text = record.text
             existing.filePaths = record.filePaths
-            existing.imageTIFFData = record.imageTIFFData
             records.insert(existing, at: 0)
         } else {
+            persistImageIfNeeded(in: &record)
             records.insert(record, at: 0)
         }
         normalizeLimit()
+        cleanupOrphanedImages()
         saveAndNotify()
     }
 
     func delete(id: String) {
         records.removeAll { $0.id == id }
+        cleanupOrphanedImages()
         saveAndNotify()
     }
 
@@ -196,7 +211,15 @@ final class ClipboardHistoryStore {
     }
 
     func record(id: String) -> ClipboardHistoryRecord? {
-        records.first { $0.id == id }
+        guard var record = records.first(where: { $0.id == id }) else {
+            return nil
+        }
+        if record.category == .image,
+           record.imageTIFFData == nil,
+           let fileName = record.imageFileName {
+            record.imageTIFFData = try? Data(contentsOf: imageDirectoryURL.appendingPathComponent(fileName))
+        }
+        return record
     }
 
     private func normalizeLimit() {
@@ -219,8 +242,77 @@ final class ClipboardHistoryStore {
             encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
             let data = try encoder.encode(records)
             try data.write(to: fileURL, options: .atomic)
+            try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: fileURL.path)
         } catch {
             NSLog("RightMenu failed to save clipboard history: %@", String(describing: error))
+        }
+    }
+
+    private func migrateInlineImagesAndSignatures() -> Bool {
+        var changed = false
+        for index in records.indices {
+            var imageData = records[index].imageTIFFData
+            let needsSignatureMigration = !records[index].signature.hasPrefix("sha256:")
+            if needsSignatureMigration,
+               imageData == nil,
+               let fileName = records[index].imageFileName {
+                imageData = try? Data(contentsOf: imageDirectoryURL.appendingPathComponent(fileName))
+            }
+
+            if needsSignatureMigration {
+                records[index].signature = clipboardHistorySignature(
+                    category: records[index].category,
+                    text: records[index].text,
+                    filePaths: records[index].filePaths,
+                    imageData: imageData
+                )
+                changed = true
+            }
+
+            if records[index].category == .image, records[index].imageTIFFData != nil {
+                var record = records[index]
+                persistImageIfNeeded(in: &record)
+                if record.imageTIFFData == nil {
+                    records[index] = record
+                    changed = true
+                }
+            }
+        }
+        return changed
+    }
+
+    private func persistImageIfNeeded(in record: inout ClipboardHistoryRecord) {
+        guard record.category == .image, let data = record.imageTIFFData else {
+            return
+        }
+
+        do {
+            try FileManager.default.createDirectory(
+                at: imageDirectoryURL,
+                withIntermediateDirectories: true,
+                attributes: [.posixPermissions: 0o700]
+            )
+            let fileName = record.imageFileName ?? "\(record.id).image"
+            let imageURL = imageDirectoryURL.appendingPathComponent(fileName)
+            try data.write(to: imageURL, options: .atomic)
+            try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: imageURL.path)
+            record.imageFileName = fileName
+            record.imageTIFFData = nil
+        } catch {
+            NSLog("RightMenu failed to persist clipboard image: %@", String(describing: error))
+        }
+    }
+
+    private func cleanupOrphanedImages() {
+        let referenced = Set(records.compactMap(\.imageFileName))
+        guard let files = try? FileManager.default.contentsOfDirectory(
+            at: imageDirectoryURL,
+            includingPropertiesForKeys: nil
+        ) else {
+            return
+        }
+        for file in files where !referenced.contains(file.lastPathComponent) {
+            try? FileManager.default.removeItem(at: file)
         }
     }
 }
@@ -268,6 +360,7 @@ enum ClipboardHistoryClassifier {
                 text: paths.joined(separator: "\n"),
                 filePaths: paths,
                 imageTIFFData: nil,
+                imageFileName: nil,
                 preview: paths.map { URL(fileURLWithPath: $0).lastPathComponent }.joined(separator: ", "),
                 detail: "\(paths.count) 个文件/路径",
                 createdAt: createdAt
@@ -284,6 +377,7 @@ enum ClipboardHistoryClassifier {
                 text: string,
                 filePaths: paths,
                 imageTIFFData: nil,
+                imageFileName: nil,
                 preview: normalized,
                 detail: detail(for: category, string: string, paths: paths),
                 createdAt: createdAt
@@ -298,6 +392,7 @@ enum ClipboardHistoryClassifier {
                 text: nil,
                 filePaths: [],
                 imageTIFFData: tiff,
+                imageFileName: nil,
                 preview: "图片 \(Int(size.width))x\(Int(size.height))",
                 detail: ByteCountFormatter.string(fromByteCount: Int64(tiff.count), countStyle: .file),
                 createdAt: createdAt
@@ -341,17 +436,18 @@ enum ClipboardHistoryClassifier {
         text: String?,
         filePaths: [String],
         imageTIFFData: Data?,
+        imageFileName: String?,
         preview: String,
         detail: String,
         createdAt: Date
     ) -> ClipboardHistoryRecord {
         let cleanedPreview = preview.trimmingCharacters(in: .whitespacesAndNewlines)
-        let signature = [
-            category.rawValue,
-            text ?? "",
-            filePaths.joined(separator: "\u{1f}"),
-            imageTIFFData?.base64EncodedString() ?? ""
-        ].joined(separator: "\u{1e}")
+        let signature = clipboardHistorySignature(
+            category: category,
+            text: text,
+            filePaths: filePaths,
+            imageData: imageTIFFData
+        )
 
         return ClipboardHistoryRecord(
             id: UUID().uuidString,
@@ -359,6 +455,7 @@ enum ClipboardHistoryClassifier {
             text: text,
             filePaths: filePaths,
             imageTIFFData: imageTIFFData,
+            imageFileName: imageFileName,
             preview: cleanedPreview.isEmpty ? category.title : String(cleanedPreview.prefix(240)),
             detail: detail,
             signature: signature,
@@ -494,6 +591,23 @@ enum ClipboardHistoryClassifier {
             .joined(separator: " ")
             .replacingOccurrences(of: "  ", with: " ")
     }
+}
+
+private func clipboardHistorySignature(
+    category: ClipboardHistoryCategory,
+    text: String?,
+    filePaths: [String],
+    imageData: Data?
+) -> String {
+    var hasher = SHA256()
+    for value in [category.rawValue, text ?? "", filePaths.joined(separator: "\u{1f}")] {
+        hasher.update(data: Data(value.utf8))
+        hasher.update(data: Data([0]))
+    }
+    if let imageData {
+        hasher.update(data: imageData)
+    }
+    return "sha256:" + hasher.finalize().map { String(format: "%02x", $0) }.joined()
 }
 
 final class ClipboardHistoryWindowController: NSWindowController, NSWindowDelegate {

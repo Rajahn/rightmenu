@@ -27,6 +27,10 @@ Supported categories:
 ~/Library/Application Support/RightMenu/clipboard-history.json
 ```
 
+- The JSON file stores lightweight metadata only. Image payloads are stored separately under `clipboard-images/`, so copying one new item does not rewrite every historical image.
+- Record signatures use SHA-256 digests instead of embedding duplicate clipboard content.
+- Legacy inline-image history is migrated in place on startup; expired or deleted image records remove their orphaned payload files.
+- The metadata file and image payloads are restricted to the current user (`0600`).
 - Duplicate content is moved to the top instead of creating another row.
 - History keeps up to 100 unpinned records; pinned records are preserved.
 - Clicking `复制` writes the record back to the system clipboard.
